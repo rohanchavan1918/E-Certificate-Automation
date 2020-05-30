@@ -59,24 +59,19 @@ sheet = wb.sheet_by_index(0)
 
 
 for i in range(0,sheet.nrows):
-# for i in range(1,10):
     try:
         name = sheet.row_values(i)[0]
         print(name)
-        # # designation = sheet.row_values(i)[1]
-        # designation = "Bridge It"
         email = sheet.row_values(i)[1]
         # Image of certificate
         img = Image.open("cert.jpg") # CHANGE
         draw = ImageDraw.Draw(img)
         selectFont = ImageFont.truetype("font1.ttf", size = 100)
-        draw.text( (1977,1151), name, (0,0,0), font=selectFont)
-        # draw.text( (765,1595), designation, (0,0,0), font=selectFont) # CHANGE
+        draw.text( (1977,1151), name, (0,0,0), font=selectFont) # CHANGE
         cert_file_name = name+'_certificate.pdf'
         img.save( './iot/'+cert_file_name, "PDF", resolution=100.0) #Change Folder
-        # img.save( cert_file_name, "PDF", resolution=100.0)
         send_mail(email,cert_file_name,name)
     except Exception as e:
         print(e)
-        print("Handled at ",1)
+        # print("Handled at ",1)
         pass
