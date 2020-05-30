@@ -10,17 +10,31 @@ from email import encoders
 
 
 def send_mail(reciever_email,cert_file_name,name):
-    mail_content = f'''Dear {name}
+    mail_content = f'''Dear {name},
+
 Greetings from SJCEM!
+
 Thank you for attending the 5-day Webinar Series organized by Department of Computer Engineering, St. John College of Engineering and Management, Palghar.
+
 Please find attached your E-certificate.
+
 We hope that you enjoyed the sessions and would be interested in attending our future sessions too.
+
 Please subscribe to our YouTube Channel (Link: https://www.youtube.com/channel/UCfPHjK7YAI77koFtmjhdd8Q/featured) for more updates.
+
 Thank you!
+
+Please feel free to contact the faculty coordinators for any queries. 
+
+Best Regards,
+Organizing Team
+Department of Computer Engineering
+St. John College of Engineering and Management, Palghar
+Website: www.sjcem.edu.in
     '''
     #The mail addresses and password
-    sender_address = 'YourEmail'
-    sender_pass = 'YourPAssword'
+    sender_address = 'rohanchavan@nimapinfotech.com'
+    sender_pass = 'rohan@123'
     receiver_address = reciever_email
     file_header_name = name+'_Webinar_certificate'
     #Setup the MIME
@@ -59,19 +73,43 @@ sheet = wb.sheet_by_index(0)
 
 
 for i in range(0,sheet.nrows):
+# for i in range(1,10):
     try:
         name = sheet.row_values(i)[0]
         print(name)
+        # # designation = sheet.row_values(i)[1]
+        # designation = "Bridge It"
         email = sheet.row_values(i)[1]
         # Image of certificate
         img = Image.open("cert.jpg") # CHANGE
         draw = ImageDraw.Draw(img)
         selectFont = ImageFont.truetype("font1.ttf", size = 100)
-        draw.text( (1977,1151), name, (0,0,0), font=selectFont) # CHANGE
+        draw.text( (1977,1151), name, (0,0,0), font=selectFont)
+        # draw.text( (765,1595), designation, (0,0,0), font=selectFont)
         cert_file_name = name+'_certificate.pdf'
         img.save( './iot/'+cert_file_name, "PDF", resolution=100.0) #Change Folder
+        # img.save( cert_file_name, "PDF", resolution=100.0)
         send_mail(email,cert_file_name,name)
     except Exception as e:
         print(e)
-        # print("Handled at ",1)
+        print("Handled at ",1)
         pass
+
+# 1977,1151
+
+# Subject:  E-certificate of <<Participant Name>> for attending the Webinar Series at St. John College of Engineering and Management, Palghar from May 24 to 28, 2020
+# Dear <<Participant Name>>
+# Greetings from SJCEM!
+# Thank you for attending the 5-day Webinar Series organized by Department of Computer Engineering, St. John College of Engineering and Management, Palghar.
+# Please find attached your E-certificate.
+# We hope that you enjoyed the sessions and would be interested in attending our future sessions too.
+# Please subscribe to our YouTube Channel (Link: https://www.youtube.com/channel/UCfPHjK7YAI77koFtmjhdd8Q/featured) for more updates.
+# Thank you!
+
+# Please feel free to contact the faculty coordinators for any queries. 
+
+# Best Regards,
+# Organizing Team
+# Department of Computer Engineering
+# St. John College of Engineering and Management, Palghar
+# Website: www.sjcem.edu.in
